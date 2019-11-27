@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:43 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/23 11:57:07 by froussel         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:21:46 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ t_info	*info_initialization()
 	info->c = -1;
 	info->map = map_initialization(info);
 	info->player = player_initialization(info);
+	info->last_frame = 0.0;
 	info->save = 0;
+	info->buf_rgb = 0;
 	//tile_size = info->res_x / map->map_col = 0;
 	return (info);
 }

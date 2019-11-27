@@ -6,45 +6,11 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:41:17 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/23 12:38:45 by froussel         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:52:33 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-int		is_wall(t_map *map, int x, int y);
-void	player_movement(t_map *map, t_player *player);
-
-//debug----------------------------------------
-void	print_info(t_info *info)
-{
-	printf("res=%d\n",info->res_x);
-	printf("res=%d\n",info->res_y);
-	printf("coord=%s\n",info->no);
-	printf("coord=%s\n",info->so);
-	printf("coord=%s\n",info->we);
-	printf("coord=%s\n",info->ea);
-	printf("coord=%s\n",info->s);
-	printf("color: %d\n",info->f);
-	printf("color: %d\n",info->c);
-}
-
-void	printf_map(t_info *info)
-{
-	int row;
-	int col;
-
-	row = -1;
-	while (++row < info->map->map_row)
-	{
-		col = -1;
-		while (++col < info->map->map_col)
-			printf("%c", info->map->map[row][col]);
-		printf("\n");
-	}
-}
-//-------------------------------------
 
 //utils maths----------
 float	deg_to_rad(float deg)
@@ -56,148 +22,52 @@ float	rad_to_deg(float rad)
 	return (rad * (M_PI / 180));
 }
 //------------------------
-
-void	print_ceiling_floor(t_info *info)
+int		is_wall(t_map *map, float x, float y)
 {
-	int x;
-	int y;
+	int row;
+	int col;
 
-	y = -1;
-	while (++y < info->res_y / 2)
-	{
-		x = -1;
-		while (++x < info->res_x)
-			mlx_pixel_put (info->mlx_ptr, info->win_ptr, x, y, info->c);
-	}
-	y = (info->res_y / 2) - 1;
-	while (++y < info->res_y)
-	{
-		x = -1;
-		while (++x < info->res_x)
-			mlx_pixel_put (info->mlx_ptr, info->win_ptr, x, y, info->f);
-	}
-}
-
-void	init_player_on_map(t_info *info, t_map *map, t_player *player)
-{
-	printf("JE SUI ICI X=%d Y=%d\n", map->player_x, map->player_y);
-	player->x = (map->player_x / info->res_x) * info->res_x;/** TILE_SIZE;*/
-	player->y = map->player_y * TILE_SIZE;
-	player->rotate_angle = deg_to_rad(map->player_dir);
-	map->tile = info->res_x / map->map_col;
-}
-
-int		key_release_hook(int key, void *info)
-{
-	t_info	*ptr_info;
-	
-	ptr_info = (t_info *)info;
-	key++;
-	if (key == UP)
-		ptr_info->player->walk_dir = 0;
-	if (key == DOWN)
-		ptr_info->player->walk_dir = 0;
-	if (key == RIGHT)
-		ptr_info->player->turn_dir = 0;
-	if (key == LEFT)
-		ptr_info->player->turn_dir = 0;
-	return (0);
-}
-
-int		key_press_hook(int key, void *info)
-{
-	t_info	*ptr_info;
-	
-	ptr_info = (t_info *)info;
-	
-	printf("la touche =%d\n", key);
-	if (key == ESC)
-	{
-		mlx_destroy_window(ptr_info->mlx_ptr, ptr_info->win_ptr);
-		exit(0);
-	}
-	if (key == UP)
-		ptr_info->player->walk_dir = 1;
-	if (key == DOWN)
-		ptr_info->player->walk_dir = -1;
-	if (key == RIGHT)
-		ptr_info->player->turn_dir = 1;
-	if (key == LEFT)
-		ptr_info->player->turn_dir = -1;
-	//printf("walk=%d turn=%d\n",ptr_info->player->walk_dir, ptr_info->player->turn_dir);
-	player_movement(ptr_info->map, ptr_info->player);
-	printf("player_x=%d player_y =%d\n",ptr_info->player->x, ptr_info->player->y);
-	mlx_pixel_put (ptr_info->mlx_ptr, ptr_info->win_ptr, ptr_info->player->x / TILE_SIZE, ptr_info->player->y/ TILE_SIZE, ptr_info->c);
-	return (0);
-}
-
-int		keys_set(t_info *info)
-{
-	mlx_hook(info->win_ptr, 2, 0, key_press_hook, info);
-	mlx_hook(info->win_ptr, 3, 0, key_release_hook, info);
-
-	return (0);
-}
-
-int		is_wall(t_map *map, int col, int row) //j'ai inverse x y carc dans map c l'inverse
-{
-	//printf("x=%d, y=%d\n", x/30, y/30);
-	//printf("%c\n", map->map[x / TILE_SIZE][y / TILE_SIZE]);//4513
-	if (map->map[row / TILE_SIZE][col / TILE_SIZE] == '1'/*|| map->map[x / TILE_SIZE][y / TILE_SIZE] == '2'*/)
+	row = floor(y / TILE_SIZE);
+	col = floor(x / TILE_SIZE);
+	if (map->map[row][col] == '1')/*|| map->./map[x / TILE_SIZE][y / TILE_SIZE] == '2'*/
 		return (1);
 	return (0);
 }
 
-void	player_movement(t_map *map, t_player *player)
+void	init_player_on_map(t_info *info, t_map *map, t_player *player)
 {
-	float	move_step;
-	int		new_x;
-	int		new_y;
-	
-	//printf("walk=%d\n", player->walk_dir);
-	player->rotate_angle += player->turn_dir * player->rotate_speed;
-	move_step = player->walk_dir * player->move_speed;
-	new_x = player->x + cos(player->rotate_angle) * move_step;
-	new_y = player->y + sin(player->rotate_angle) * move_step;
-	if(!is_wall(map, new_x, new_y))
-	{
-		player->x = new_x;
-		player->y = new_y;
-	}
+	player->x = map->player_x * TILE_SIZE;
+	player->y = map->player_y * TILE_SIZE;
+	player->rotate_angle = deg_to_rad(map->player_dir);
+	map->tile = info->res_x / map->map_col;
 }
-
-void 	cub3d_hub(t_info *info)
+void	window_initialization(t_info *info)
 {
-	init_player_on_map(info, info->map, info->player);
-	printf("x=%d y=%d\n",info->player->x,info->player->y);
-	//mlx_pixel_put (info->mlx_ptr, info->win_ptr, info->player->x, info->player->y, info->c);
-	keys_set(info);
-	//player_movement(info->map, info->player);
+	if (!(info->mlx_ptr = mlx_init()))
+		error_strerror(info);
+	if (!(info->win_ptr = mlx_new_window(info->mlx_ptr,
+		info->res_x, info->res_y, "cub3d")))
+		error_strerror(info);
 }
-
 int		main(int ac, char **av)
 {
 	t_info	*info;
 
 	if (ac < 2 || ac > 3)
 		return (-1);
-	info = info_initialization();
-	read_file_info(av[1], av[2], info);
-	//print_info(info);
-	if (!(info->mlx_ptr = mlx_init()))
-		error_strerror(info);
-	if (!(info->win_ptr = mlx_new_window(info->mlx_ptr,
-		info->res_x, info->res_y, "cub3d")))
-		error_strerror(info);
-	printf_map(info);
-	cub3d_hub(info);
+	info = info_initialization();//why pas dans les params
+	read_file_info(av[1], (ac == 3 ? av[2] : NULL), info);
+	window_initialization(info);
+	init_player_on_map(info, info->map, info->player);
+	
+	keys_set(info);
+	mlx_loop_hook(info->mlx_ptr, loop_cub3d, info);
+	//render_map(info, info->map);
+	//render_player(info, info->player, 1);
+
 	mlx_loop(info->mlx_ptr);
 	return (0);
 }
-
-
-
-
 
 /*
 //debug----------------------------------------
@@ -230,3 +100,18 @@ void	printf_map(t_info *info)
 }
 //-------------------------------------
 */
+// other
+/*void	update(t_info *info)
+{
+	float delta_time;
+	time_t seconds;
+    seconds = time (NULL);
+
+	while (seconds < info->last_frame / FPS)
+		seconds = time (NULL);
+	delta_time = (seconds - info->last_frame);
+	info->last_frame = seconds;
+
+	//move_player(delta_time);
+	//caste_all_ray()
+}*/

@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:08:11 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/23 11:54:52 by froussel         ###   ########.fr       */
+/*   Updated: 2019/11/27 14:21:28 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static int	parse_info_player_dir(char coord)
 {
 	if (coord == 'N')
-		return (90);
+		return (270);
 	else if (coord == 'W')
 		return (180);
 	else if (coord == 'S')
-		return (270);
+		return (90);
 	else if (coord == 'E')
 		return (0);
 	return (-1);
@@ -101,11 +101,8 @@ static int  parse_file_map(int fd, char *line, t_map *map)
 			return (-1);
 	}
 	free(tmp_map);
-	//printf_map(info);
 	return (1);
 }
-//check_info.c
-
 
 void        read_file_info(char *file, char *param2, t_info	*info)
 {
@@ -119,9 +116,10 @@ void        read_file_info(char *file, char *param2, t_info	*info)
 		error_read_file_info(fd, info);
 	if (parse_file_info(fd, NULL, info) < 0)
 		error_read_file_info(fd, info);
-	//print_info(info);//debug
 	if (parse_file_map(fd, NULL, info->map) < 0)
 		error_read_file_info(fd, info);
+	if (!(info->buf_rgb = malloc(sizeof(int) * (info->res_x * info->res_y))))
+		return ;//free info + exit 0 + close fd
 	check_info(info, info->map);
 	close(fd);
 }
