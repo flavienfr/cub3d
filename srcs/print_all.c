@@ -10,32 +10,33 @@ typedef struct  s_anchor
 
 void	print_rect(t_info *info, t_anchor anc, int color)
 {
-	int row;
-	int col;
 
-	row = anc.y;
-	while (row < anc.y + anc.y_goal)
+	int h;
+	int w;
+
+	h = anc.y;
+	while (h < anc.y_goal)
 	{
-		col = anc.x;
-		while (col < anc.x + anc.y_goal)
+		w = anc.x;
+		while (w < anc.x_goal)
 		{
-			mlx_pixel_put (info->mlx_ptr, info->win_ptr, col, row, color);
-			col++;
+			info->img.data[h * info->res_x + w] = color;
+			w++;
 		}
-		row++;
-	}	
+		h++;
+	}
 }
 
-void	render_player(t_info *info, t_player *player, int write)
+void	render_player(t_info *info, t_player *player)
 {
 	t_anchor anc;
 
 
 	anc.x = player->x * MINI_MAP;
 	anc.y = player->y * MINI_MAP;
-	anc.y_goal = anc.x_goal = PLAYER_WIDTH * MINI_MAP;
-	print_rect(info, anc, write ? 65280 : 16777215);
-
+	anc.y_goal = anc.y + PLAYER_WIDTH * MINI_MAP;
+	anc.x_goal = anc.x + PLAYER_WIDTH * MINI_MAP;
+	print_rect(info, anc, GREEN);
 }
 
 void	render_map(t_info *info, t_map *map)
@@ -45,30 +46,30 @@ void	render_map(t_info *info, t_map *map)
 	t_anchor anc;
 
 	row = -1;
-	while (++row < info->map->map_row)
+	while (++row < map->map_row)
 	{
 		col = -1;
-		while (++col < info->map->map_col)
+		while (++col < map->map_col)
 		{
 			anc.x = col * TILE_SIZE * MINI_MAP;
 			anc.y = row * TILE_SIZE * MINI_MAP;
-			anc.y_goal = anc.x_goal = TILE_SIZE * MINI_MAP;
-			//TILE *= MINI_MAP;
-			print_rect(info, anc, map->map[row][col] == '1' ? 16711680 : 16777215);
+			anc.y_goal =  anc.y + TILE_SIZE * MINI_MAP;
+			anc.x_goal = anc.x + TILE_SIZE * MINI_MAP;
+			print_rect(info, anc, map->map[row][col] == '1' ? BLACK : GREY);
 		}
 	}
 }
 
-void	render_ray(t_info *info, t_ray *ray, int print)
+void	render_ray(t_info *info)
 {
 	int id;
 
 	id = -1;
-	if (!ray->wall_x)
-		return ;
+	//if (!ray->wall_x)
+	//	return ;
 	while (++id < info->res_x)
-		mlx_pixel_put (info->mlx_ptr, info->win_ptr, ray[id].wall_x * MINI_MAP,
-		ray[id].wall_y * MINI_MAP, print ? 255 : 16777215);
+    	info->img.data[((int)floor(ray[id].wall_y * MINI_MAP)) * info->res_x + ((int)floor(ray[id].wall_x * MINI_MAP))] = YELLOW;
+	//info->buf_rgb[(int)floor(ray[id].wall_x * MINI_MAP)][(int)floor(ray[id].wall_y * MINI_MAP)] = YELLOW;
 }
 
 void	print_ceiling_floor(t_info *info)
@@ -81,13 +82,13 @@ void	print_ceiling_floor(t_info *info)
 	{
 		x = -1;
 		while (++x < info->res_x)
-			mlx_pixel_put (info->mlx_ptr, info->win_ptr, x, y, info->c);
+			info->buf_rgb[x][y] = info->c;
 	}
 	y = (info->res_y / 2) - 1;
 	while (++y < info->res_y)
 	{
 		x = -1;
 		while (++x < info->res_x)
-			mlx_pixel_put (info->mlx_ptr, info->win_ptr, x, y, info->f);
+			info->buf_rgb[x][y] = info->f;
 	}
 }

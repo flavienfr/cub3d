@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:08:11 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/27 14:21:28 by froussel         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:53:48 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,6 @@ void        read_file_info(char *file, char *param2, t_info	*info)
 		error_read_file_info(fd, info);
 	if (parse_file_map(fd, NULL, info->map) < 0)
 		error_read_file_info(fd, info);
-	if (!(info->buf_rgb = malloc(sizeof(int) * (info->res_x * info->res_y))))
-		return ;//free info + exit 0 + close fd
 	check_info(info, info->map);
 	close(fd);
 }

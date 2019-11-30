@@ -6,22 +6,12 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:41:17 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/27 16:52:33 by froussel         ###   ########.fr       */
+/*   Updated: 2019/11/30 11:16:49 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//utils maths----------
-float	deg_to_rad(float deg)
-{
-	return (deg * (M_PI / 180));
-}
-float	rad_to_deg(float rad)
-{
-	return (rad * (M_PI / 180));
-}
-//------------------------
 int		is_wall(t_map *map, float x, float y)
 {
 	int row;
@@ -34,20 +24,82 @@ int		is_wall(t_map *map, float x, float y)
 	return (0);
 }
 
-void	init_player_on_map(t_info *info, t_map *map, t_player *player)
+void	print_rect42(t_info *info)
 {
-	player->x = map->player_x * TILE_SIZE;
-	player->y = map->player_y * TILE_SIZE;
-	player->rotate_angle = deg_to_rad(map->player_dir);
-	map->tile = info->res_x / map->map_col;
+	int h;
+	int w;
+
+	h = 100;
+	while (h < 200+ 100 )
+	{
+		w = 100;
+		while (w < 500 + 100)
+		{
+			info->img.data[h * info->res_x + w] = BLUE;
+			w++;
+		}
+		h++;
+	}
+	mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->img.img_ptr, 0, 0);
 }
-void	window_initialization(t_info *info)
+
+int 	loop_cub3d(t_info *info)
+{	
+	player_movement(info->map, &info->player);
+    caste_all_ray(info, &info->player);
+	generete_wall(info, &info->player);
+
+	render_map(info, info->map);
+	render_player(info, &info->player);
+	render_ray(info);
+
+	mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, info->img.img_ptr, 0, 0);
+	return (0);
+}
+
+void	test()
+{
+	int y = -1;
+	int x;
+	while (++y < TEXTURE_HEIGHT)
+	{
+		x = -1;
+		while (++x < TEXTURE_WIDTH)
+			texture[x][y] = (x % 8 && y % 8) ? RED : BLACK; 
+	}
+}
+
+
+void	test2(t_info *info, t_img *img)
+{
+	int h;
+	int w;
+
+	//img->img_ptr =mlx_new_image (info->mlx_ptr, info->res_x, info->res_y);
+	//img->data = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
+	h = -1;
+	while (++h < info->res_y)
+	{
+		w = -1;
+		while (++w < info->res_x)
+		{
+			img->data[h * info->res_x + w] = YELLOW;
+		}
+	}
+	mlx_put_image_to_window(info->mlx_ptr, info->win_ptr, img->img_ptr, 0, 0);
+
+	//mlx_xpm_file_to_image (info->mlx_ptr, char *filename, int *width, int *height );
+}
+
+void	window_initialization(t_info *info, t_img *img)
 {
 	if (!(info->mlx_ptr = mlx_init()))
 		error_strerror(info);
 	if (!(info->win_ptr = mlx_new_window(info->mlx_ptr,
 		info->res_x, info->res_y, "cub3d")))
 		error_strerror(info);
+	img->img_ptr =mlx_new_image (info->mlx_ptr, info->res_x, info->res_y);
+	img->data = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
 }
 int		main(int ac, char **av)
 {
@@ -57,14 +109,16 @@ int		main(int ac, char **av)
 		return (-1);
 	info = info_initialization();//why pas dans les params
 	read_file_info(av[1], (ac == 3 ? av[2] : NULL), info);
-	window_initialization(info);
-	init_player_on_map(info, info->map, info->player);
+	window_initialization(info, &info->img);
+	init_player_on_map(info, info->map, &info->player);
+
+	test();
+	//test2(info, &info->img);
+	print_rect42(info);
+
 	
 	keys_set(info);
 	mlx_loop_hook(info->mlx_ptr, loop_cub3d, info);
-	//render_map(info, info->map);
-	//render_player(info, info->player, 1);
-
 	mlx_loop(info->mlx_ptr);
 	return (0);
 }

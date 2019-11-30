@@ -1,32 +1,5 @@
 #include "cub3d.h"
 
-float	norm_angle(float angle)
-{
-	angle = remainder(angle, M_PI * 2);//angle % (2 * pi) ?
-	if (angle < 0)
-		angle += M_PI * 2;
-	return (angle);
-}
-
-float	dist_point(float x1, float y1, float x2, float y2)
-{
-	return (sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
-}
-
-t_ray   inisialize_ray(t_ray ray, float ray_angle)
-{
-	ray.angle = norm_angle(ray_angle);
-	ray.wall_x = 0;
-	ray.wall_y = 0;
-	ray.dist = 0;
-	ray.is_vert = 0;
-	ray.is_facing_down = ray.angle  > 0 && ray.angle  < M_PI;
-	ray.is_facing_up = !ray.is_facing_down;
-	ray.is_facing_right = ray.angle  < 0.5 * M_PI || ray.angle  > 1.5 * M_PI;
-	ray.is_facing_left = !ray.is_facing_right;
-    return (ray);
-}
-
 void	ray_horizontal(t_info *info, t_player *player, t_map *map ,t_ray *ray)
 {
 	float 	y_intercept;
@@ -111,7 +84,7 @@ void	cast_ray(t_info *info, t_player *player, t_map *map ,t_ray *ray)
 	}
 }
 
-void	caste_all_ray(t_info *info, t_player * player)
+void	caste_all_ray(t_info *info, t_player *player)
 {
 	float 	ray_angle;
 	int 	id;

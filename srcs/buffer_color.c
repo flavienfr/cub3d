@@ -9,8 +9,8 @@ void		clear_buf_rgb(t_info *info, int color)
 	while (++y < info->res_y)
     {
         x = -1;
-		while (++x < info->res_x)
-            info->buf_rgb[info->res_x * y + x] = color;
+        while (++x < info->res_x)
+            info->buf_rgb[x][y] = color;
     }
 }
 
@@ -23,7 +23,7 @@ void		write_buf_rgb(t_info *info)
 	while (++y < info->res_y)
     {
         x = -1;
-		while (++x < info->res_x)
-            mlx_pixel_put (info->mlx_ptr, info->win_ptr, x , y, info->buf_rgb[info->res_x * y + x]);
+        while (++x < info->res_x)
+            mlx_pixel_put (info->mlx_ptr, info->win_ptr, x , y, info->buf_rgb[x][y]);
     }
 }
