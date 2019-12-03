@@ -24,7 +24,10 @@ void	ray_horizontal(t_info *info, t_player *player, t_map *map ,t_ray *ray)
 	&& ray->wall_y >= 0 && ray->wall_y <= info->res_y)
 	{
 		if (is_wall(map, ray->wall_x, ray->wall_y + (ray->is_facing_up ? -1 : 0)))
-			break ;// add wall content
+		{
+			//ray->wall_content = ray->is_facing;
+			break ;
+		}
 		ray->wall_x += x_step;
 		ray->wall_y += y_step;
 	}

@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:31 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/25 14:05:32 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/03 16:24:00 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*read_path(char *line)
 	while (line[len] && line[len] != ' ')
 		len++;
 	str = ft_substr(line, i, len);//+1
+	printf("TEXTURE=%s\n", str);
 	return (str);
 }
 

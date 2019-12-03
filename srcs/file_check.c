@@ -6,21 +6,20 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 10:53:44 by froussel          #+#    #+#             */
-/*   Updated: 2019/11/23 11:54:51 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:04:12 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 /*
-static int  check_info_path_file(char *path)//necessaire d'ouvrir ?
+static int  check_info_path_file(t_info *info, char *path)
 {
-	int fd;
+	void	*image_pointer;
+	
+	image_pointer = mlx_new_image(info->mlx_ptr, TEXTURE_WIDTH, TEXTURE_HEIGHT);//protection
+	info->no = mlx_get_data_addr(image_pointer, &bpp, &size_line, &endian);
 
-	fd = open(path, O_RDONLY);
-	close(fd);
-	return (fd);
-}
-*/
+}*/
 
 static int check_info_map(t_map *map)
 {

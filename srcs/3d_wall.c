@@ -8,15 +8,13 @@ void    render_wall(t_info *info, int x, int bot, int top)
 
     y = top;
     if (ray[x].is_vert)
-        texture_x = (int)ray[x].wall_y % TILE_SIZE;
+        texture_x = (int)ray[x].wall_y % TEXTURE_HEIGHT;
     else
-        texture_x = (int)ray[x].wall_x % TILE_SIZE;
+        texture_x = (int)ray[x].wall_x % TEXTURE_WIDTH;
     while (y < bot)
     {
         texture_y = (y + (ray[x].stip_height / 2) - (info->res_y / 2)) * ((float)TEXTURE_HEIGHT / ray[x].stip_height);
-        
-        //info->buf_rgb[x][y] = texture[texture_x][texture_y]/*RED*/;
-        info->img.data[y * info->res_x + x] = texture[texture_x][texture_y]/*RED*/;
+        info->img.data[y * info->res_x + x] = texture[texture_x][texture_y];
         y++;
     }
 }
