@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:43 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/03 14:16:50 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:39:42 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ t_info	*info_initialization()
 	info->win_ptr = NULL;
 	info->res_x = 0;
 	info->res_y = 0;
-	info->no = NULL;
-	info->so = NULL;
-	info->we = NULL;
-	info->ea = NULL;
-	info->s = NULL;
 	info->f = -1;
 	info->c = -1;
 	info->map = map_initialization(info);
@@ -88,16 +83,11 @@ t_info	*info_initialization()
 
 void	info_free(t_info *info)
 {
-	if (info->no)
-		free(info->no);
-	if (info->so)
-		free(info->so);
-	if (info->we)
-		free(info->we);
-	if (info->ea)
-		free(info->ea);
-	if (info->s)
-		free(info->s);
+	int i;
+
+	i = -1;
 	if (info->map)
 		free(info->map->map);
+	while (++i < NB_TEXTURE)
+		free(info->tex[i].path);
 }

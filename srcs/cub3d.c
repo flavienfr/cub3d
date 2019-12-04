@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:41:17 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/03 17:04:13 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:34:50 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	window_initialization(t_info *info, t_img *img)
 	if (!(info->win_ptr = mlx_new_window(info->mlx_ptr,
 		info->res_x, info->res_y, "cub3d")))
 		error_strerror(info);
-	img->img_ptr =mlx_new_image (info->mlx_ptr, info->res_x, info->res_y);
+	img->img_ptr = mlx_new_image (info->mlx_ptr, info->res_x, info->res_y);
 	img->data = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->size_l, &img->endian);
 }
 int		main(int ac, char **av)
@@ -111,6 +111,7 @@ int		main(int ac, char **av)
 	read_file_info(av[1], (ac == 3 ? av[2] : NULL), info);
 	window_initialization(info, &info->img);
 	init_player_on_map(info, info->map, &info->player);
+	init_textute(info);
 
 	test();
 	//test2(info, &info->img);

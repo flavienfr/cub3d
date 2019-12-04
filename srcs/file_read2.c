@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:31 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/03 16:24:00 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/04 14:35:12 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ static char	*read_path(char *line)
 	len = i;
 	while (line[len] && line[len] != ' ')
 		len++;
-	str = ft_substr(line, i, len);//+1
-	printf("TEXTURE=%s\n", str);
+	str = ft_substr(line, i, len);
 	return (str);
 }
 
@@ -91,15 +90,15 @@ int  parse_file_info(int fd, char *line, t_info *info)
 		if (*line == 'R' && ++end)
 			read_resolution(line, info);
 		else if (line[0] == 'N' && line[1] == 'O' && ++end)
-			info->no = read_path(&line[2]);
+			info->tex[TEX_NO].path  = read_path(&line[2]);
 		else if (line[0] == 'S' && line[1] == 'O' && ++end)
-			info->so = read_path(&line[2]);
+			info->tex[TEX_SO].path = read_path(&line[2]);
 		else if (line[0] == 'W' && line[1] == 'E' && ++end)
-			info->we = read_path(&line[2]);
+			info->tex[TEX_WE].path = read_path(&line[2]);
 		else if (line[0] == 'E' && line[1] == 'A' && ++end)
-			info->ea = read_path(&line[2]);
+			info->tex[TEX_EA].path = read_path(&line[2]);
 		else if (line[0] == 'S' && ++end)
-			info->s = read_path(&line[1]);
+			info->tex[TEX_S].path = read_path(&line[1]);
 		else if (*line == 'F' && ++end)
 			info->f = read_floor_ceiling(&line[1]);
 		else if (*line == 'C' && ++end)

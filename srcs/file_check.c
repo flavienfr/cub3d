@@ -6,20 +6,23 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 10:53:44 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/03 17:04:12 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:34:49 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-/*
-static int  check_info_path_file(t_info *info, char *path)
-{
-	void	*image_pointer;
-	
-	image_pointer = mlx_new_image(info->mlx_ptr, TEXTURE_WIDTH, TEXTURE_HEIGHT);//protection
-	info->no = mlx_get_data_addr(image_pointer, &bpp, &size_line, &endian);
 
-}*/
+static int  check_info_path_file(t_info *info/*, t_tex *tex*/)
+{
+	t_tex tex;
+
+	printf("path=%s\n", tex.path);
+	if (!(tex.ptr = mlx_xpm_file_to_image (info->win_ptr, "./texture/bluestone.XPM", &tex.width, &tex.height)))
+		return (-1);
+	//if (!(tex->data = mlx_get_data_addr(tex->ptr, &tex->bpp, &tex->size_l, &tex->endian)))
+	//	return (-1);
+	return (1);
+}
 
 static int check_info_map(t_map *map)
 {
@@ -43,16 +46,8 @@ void        check_info(t_info *info, t_map *map)
 {
 	if ((info->res_x * info->res_y) <= 0)//definir min res
 		error_global("Resolution is to small", info);
-	/*if (check_info_path_file(info->no) < 0)
+	if (check_info_path_file(info/*, &info->tex[TEX_NO]*/) < 0)
 		error_global("NO", info);
-	if (check_info_path_file(info->so) < 0)
-		error_global("SO", info);
-	if (check_info_path_file(info->we) < 0)
-		error_global("WE", info);
-	if (check_info_path_file(info->ea) < 0)
-		error_global("EA", info);
-	if (check_info_path_file(info->s) < 0)
-		error_global("S", info);*/
 	if (info->f < 0)
 		error_global("Unvalid floor color", info);
 	if (info->c < 0)
