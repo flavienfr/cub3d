@@ -6,24 +6,12 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:31 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/04 14:35:12 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/07 18:33:06 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//utils--------
-int		first_in_set(char c, char *set)
-{
-	while (*set)
-	{
-		if (*set == c)
-			return (1);
-		set++;
-	}
-	return (0);
-}
-//--------
 static char	*read_path(char *line)
 {
 	int		i;
@@ -79,7 +67,7 @@ static int	read_floor_ceiling(char *line)
 	return (color);
 }
 
-int  parse_file_info(int fd, char *line, t_info *info)
+int			parse_file_info(int fd, char *line, t_info *info)
 {
 	int		ret;
 	int		end;
@@ -90,7 +78,7 @@ int  parse_file_info(int fd, char *line, t_info *info)
 		if (*line == 'R' && ++end)
 			read_resolution(line, info);
 		else if (line[0] == 'N' && line[1] == 'O' && ++end)
-			info->tex[TEX_NO].path  = read_path(&line[2]);
+			info->tex[TEX_NO].path = read_path(&line[2]);
 		else if (line[0] == 'S' && line[1] == 'O' && ++end)
 			info->tex[TEX_SO].path = read_path(&line[2]);
 		else if (line[0] == 'W' && line[1] == 'E' && ++end)
