@@ -6,11 +6,23 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:20:08 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:41:11 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/08 18:13:40 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+/*
+int		is_sprite(t_map *map, float wall_x, float wall_y)
+{
+	int row;
+	int col;
+
+	row = floor(wall_y / TILE_SIZE);
+	col = floor(wall_x / TILE_SIZE);
+	if (map->map[row][col] == '2')
+		printf("Sprite row=%d col=%d\n",row,col);
+	return (0);
+}*/
 
 void	ray_horizontal(t_info *info, t_player *player, t_map *map, t_ray *ray)
 {
@@ -35,6 +47,7 @@ void	ray_horizontal(t_info *info, t_player *player, t_map *map, t_ray *ray)
 		if (is_wall(map, ray->wall_x, ray->wall_y +
 			(ray->face_ud == FAC_UP ? -1 : 0)))
 			break ;
+		//is_sprite(map, ray->wall_x, ray->wall_y + (ray->face_ud == FAC_UP ? -1 : 0));
 		ray->wall_x += x_step;
 		ray->wall_y += y_step;
 	}

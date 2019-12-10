@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:21:44 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:41:33 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:41:05 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,12 @@ void	render_map(t_info *info, t_map *map)
 			anc.y = row * info->m_map.map * MINI_MAP;
 			anc.y_goal = anc.y + info->m_map.map * MINI_MAP;
 			anc.x_goal = anc.x + info->m_map.map * MINI_MAP;
-			print_rect(info, anc, map->map[row][col] == '1' ? BLACK : GREY);
+			if (map->map[row][col] == '1')
+				print_rect(info, anc, BLACK);
+			else if (map->map[row][col] == '2')
+				print_rect(info, anc, RED);
+			else
+				print_rect(info, anc, GREY);
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:19:34 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:43:51 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/10 19:18:29 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	render_wall(t_info *info, int x, int bot, int top)
 
 void	render_ceiling(t_info *info, int x, int top)
 {
-	while (top > 0)
+	while (top >= 0)
 	{
 		info->img.data[top * info->res_x + x] = info->c;
 		top--;

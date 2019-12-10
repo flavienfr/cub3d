@@ -6,11 +6,23 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:41:17 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:06:53 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:20:17 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int		is_sprite(t_map *map, float x, float y)
+{
+	int row;
+	int col;
+
+	row = floor(y / TILE_SIZE);
+	col = floor(x / TILE_SIZE);
+	if (map->map[row][col] == '2')
+		return (1);
+	return (0);
+}
 
 int		is_wall(t_map *map, float x, float y)
 {
@@ -19,7 +31,7 @@ int		is_wall(t_map *map, float x, float y)
 
 	row = floor(y / TILE_SIZE);
 	col = floor(x / TILE_SIZE);
-	if (map->map[row][col] == '1')/*|| map->map[row][col] == '2')*/
+	if (map->map[row][col] == '1')
 		return (1);
 	return (0);
 }
@@ -44,6 +56,7 @@ int		loop_cub3d(t_info *info)
 	player_movement(info->map, &info->player);
 	caste_all_ray(info, &info->player);
 	generete_wall(info, &info->player);
+	generete_sprite(info, &info->player);
 	/*
 	** Minimap render
 	*/
@@ -77,7 +90,7 @@ int		main(int ac, char **av)
 	read_file_info(av[1], (ac == 3 ? av[2] : NULL), info);
 	set_mini_map(info, &info->m_map);
 	window_initialization(info, &info->img);
-	init_player_on_map(info, info->map, &info->player);
+	init_player_on_map(info->map, &info->player);
 	init_textute(info);
 	keys_set(info);
 	mlx_loop_hook(info->mlx_ptr, loop_cub3d, info);

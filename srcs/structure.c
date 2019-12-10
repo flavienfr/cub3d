@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:43 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:42:27 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:50:10 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_map		*map_initialization(t_info *info)
 	map->player_x = -1;
 	map->player_y = -1;
 	map->map = NULL;
-	map->tile = 0;
 	return (map);
 }
 
@@ -68,6 +67,8 @@ t_info		*info_initialization(void)
 	info->res_y = 0;
 	info->f = -1;
 	info->c = -1;
+	info->num_sprite = 0;
+	info->sprite = NULL;
 	info->map = map_initialization(info);
 	info->player = player_initialization();
 	info->fov = (FOV * (M_PI / 180));
