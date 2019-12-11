@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 10:53:44 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 19:33:18 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:58:32 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void		check_info(t_info *info, t_map *map)
 		info->res_y = DEFAULT_WINDOW_Y;
 	}
 	if (info->res_x < 100 || info->res_y < 100)
-		error_preso("Map is to small", info);
+		error_preso("Resolution is to small", info);
 	if (info->f < 0)
 		error_preso("Unvalid floor color", info);
 	if (info->c < 0)
 		error_preso("Unvalid ceiling color", info);
 	if (map->player_x == -1 || map->player_y == -1)
 		error_preso("Unvalid player position on map", info);
-	if ((map->map_row * map->map_col) <= 0)//definir min map
+	if ((map->map_row < 3 || map->map_col < 3))
 		error_preso("Map is to small", info);
 	if (check_info_map(map) < 0)
 		error_preso("The map is not close", info);

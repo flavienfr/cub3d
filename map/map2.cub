@@ -1,0 +1,13 @@
+R 1920 1000
+NO ./texture/ocean.XPM
+SO ./texture/wood.XPM
+WE ./texture/redbrick.XPM
+EA ./texture/grass.XPM
+S ./texture/pillar.XPM
+F 0,108,2
+C 0,30,110
+
+1 1 1
+1 S 1
+1 1 1 
+

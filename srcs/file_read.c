@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:08:11 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/10 14:49:56 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:47:08 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	parse_info_player_dir(char coord)
 	return (-1);
 }
 
-static char	*parse_sprite_player(t_info *info, int row, int *player, char *tmp_map)
+static char	*parse_sprite_player(t_info *info, int row, int *player,
+char *tmp_map)
 {
 	int		col;
 	char	*str_row;

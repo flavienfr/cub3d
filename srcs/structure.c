@@ -6,26 +6,13 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:43 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/10 14:50:10 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:12:56 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_ray		inisialize_ray(t_ray ray, float ray_angle)
-{
-	ray.angle = norm_angle(ray_angle);
-	ray.wall_x = 0;
-	ray.wall_y = 0;
-	ray.dist = 0;
-	ray.is_vert = 0;
-	ray.face_ud = (ray.angle > 0 && ray.angle < M_PI) ? FAC_DOWN : FAC_UP;
-	ray.face_lr = (ray.angle < 0.5 * M_PI || ray.angle > 1.5 * M_PI) ?
-	FAC_RIGHT : FAC_LEFT;
-	return (ray);
-}
-
-t_map		*map_initialization(t_info *info)
+static t_map	*map_initialization(t_info *info)
 {
 	t_map *map;
 
@@ -39,7 +26,7 @@ t_map		*map_initialization(t_info *info)
 	return (map);
 }
 
-t_player	player_initialization(void)
+static t_player	player_initialization(void)
 {
 	t_player player;
 
@@ -55,7 +42,20 @@ t_player	player_initialization(void)
 	return (player);
 }
 
-t_info		*info_initialization(void)
+t_ray			inisialize_ray(t_ray ray, float ray_angle)
+{
+	ray.angle = norm_angle(ray_angle);
+	ray.wall_x = 0;
+	ray.wall_y = 0;
+	ray.dist = 0;
+	ray.is_vert = 0;
+	ray.face_ud = (ray.angle > 0 && ray.angle < M_PI) ? FAC_DOWN : FAC_UP;
+	ray.face_lr = (ray.angle < 0.5 * M_PI || ray.angle > 1.5 * M_PI) ?
+	FAC_RIGHT : FAC_LEFT;
+	return (ray);
+}
+
+t_info			*info_initialization(void)
 {
 	t_info *info;
 
@@ -73,6 +73,5 @@ t_info		*info_initialization(void)
 	info->player = player_initialization();
 	info->fov = (FOV * (M_PI / 180));
 	info->save = 0;
-	clear_buf_rgb(info, BLUE);
 	return (info);
 }

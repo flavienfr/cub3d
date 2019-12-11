@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:21:02 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/07 18:34:12 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:54:46 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	key_press_hook(int key, void *info)
 	t_info	*ptr_info;
 
 	ptr_info = (t_info *)info;
-	printf("la touche =%d\n", key);
 	if (key == ESC)
 		exit_success(info);
 	if (key == UP)

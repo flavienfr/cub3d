@@ -6,25 +6,14 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:20:08 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/08 18:13:40 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 17:10:43 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-/*
-int		is_sprite(t_map *map, float wall_x, float wall_y)
-{
-	int row;
-	int col;
 
-	row = floor(wall_y / TILE_SIZE);
-	col = floor(wall_x / TILE_SIZE);
-	if (map->map[row][col] == '2')
-		printf("Sprite row=%d col=%d\n",row,col);
-	return (0);
-}*/
-
-void	ray_horizontal(t_info *info, t_player *player, t_map *map, t_ray *ray)
+static void	ray_horizontal(t_info *info, t_player *player, t_map *map,
+t_ray *ray)
 {
 	float y_intercept;
 	float x_intercept;
@@ -47,13 +36,13 @@ void	ray_horizontal(t_info *info, t_player *player, t_map *map, t_ray *ray)
 		if (is_wall(map, ray->wall_x, ray->wall_y +
 			(ray->face_ud == FAC_UP ? -1 : 0)))
 			break ;
-		//is_sprite(map, ray->wall_x, ray->wall_y + (ray->face_ud == FAC_UP ? -1 : 0));
 		ray->wall_x += x_step;
 		ray->wall_y += y_step;
 	}
 }
 
-void	ray_vertical(t_info *info, t_player *player, t_map *map, t_ray *ray)
+static void	ray_vertical(t_info *info, t_player *player, t_map *map,
+t_ray *ray)
 {
 	float y_intercept;
 	float x_intercept;
@@ -81,7 +70,7 @@ void	ray_vertical(t_info *info, t_player *player, t_map *map, t_ray *ray)
 	}
 }
 
-void	cast_ray(t_info *info, t_player *player, t_map *map, t_ray *ray)
+static void	cast_ray(t_info *info, t_player *player, t_map *map, t_ray *ray)
 {
 	float	hor_x;
 	float	hor_y;
@@ -106,7 +95,7 @@ void	cast_ray(t_info *info, t_player *player, t_map *map, t_ray *ray)
 	}
 }
 
-void	caste_all_ray(t_info *info, t_player *player)
+void		caste_all_ray(t_info *info, t_player *player)
 {
 	float	ray_angle;
 	int		id;

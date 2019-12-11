@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:21:31 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/10 18:25:58 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:52:53 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	player_acutal(t_map *map, t_player *player, float n_x, float n_y)
 	}
 	else
 	{
-		if (!is_wall(map, player->x, n_y) && 
+		if (!is_wall(map, player->x, n_y) &&
 			!is_sprite(map, player->x, n_y))
 			player->y = n_y;
 		else if (!is_wall(map, n_x, player->y)
@@ -60,5 +60,4 @@ void		player_movement(t_map *map, t_player *player)
 	new_x = player->x + cos(player->rotate_angle) * move_step;
 	new_y = player->y + sin(player->rotate_angle) * move_step;
 	player_acutal(map, player, new_x, new_y);
-	//printf("player->rotate_angle=%f\n", rad_to_deg(player->rotate_angle));
 }

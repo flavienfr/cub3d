@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:22:14 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/09 18:33:48 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:30:12 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ float	deg_to_rad(float deg)
 
 float	rad_to_deg(float rad)
 {
-	return (rad * (180 / M_PI ));
+	return (rad * (180 / M_PI));
 }
