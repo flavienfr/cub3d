@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:19:08 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 15:44:23 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:31:14 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ void	free_all(t_info *info)
 	int i;
 
 	i = -1;
-	while (++i < info->map->map_row)
-		free(info->map->map[i]);
-	free(info->map->map);
-	free(info->map);
+	while (++i < info->map.map_row)
+		free(info->map.map[i]);
+	free(info->map.map);
 	i = -1;
 	while (++i < NB_TEXTURE)
 	{
@@ -38,14 +37,14 @@ void	free_info(t_info *info)
 {
 	int i;
 
-	if (info->map->map)
+	if (info->map.map)
 	{
-		i = 1;
-		while (++i < info->map->map_row)
-			free(info->map->map[i]);
-		free(info->map->map);
+		i = -1;//pk 1 avant ?
+		while (++i < info->map.map_row)
+			free(info->map.map[i]);
+		free(info->map.map);
 	}
-	free(info->map);
+	free(&info->map);
 	free(info);
 }
 

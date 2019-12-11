@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:59:13 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 17:21:15 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:10:30 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ typedef struct	s_info
 	int				save;
 	int				num_sprite;
 	t_mini_map		m_map;
-	struct s_map	*map;
+	struct s_map	map;
 	struct s_player player;
 	t_img			img;
 	t_sprite		*sprite;

@@ -6,23 +6,21 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:43 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 17:12:56 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:27:12 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_map	*map_initialization(t_info *info)
+static t_map	map_initialization(void)
 {
-	t_map *map;
+	t_map map;
 
-	if (!(map = malloc(sizeof(*map))))
-		error_global(info);
-	map->map_row = 0;
-	map->map_col = 0;
-	map->player_x = -1;
-	map->player_y = -1;
-	map->map = NULL;
+	map.map_row = 0;
+	map.map_col = 0;
+	map.player_x = -1;
+	map.player_y = -1;
+	map.map = NULL;
 	return (map);
 }
 
@@ -69,7 +67,7 @@ t_info			*info_initialization(void)
 	info->c = -1;
 	info->num_sprite = 0;
 	info->sprite = NULL;
-	info->map = map_initialization(info);
+	info->map = map_initialization();
 	info->player = player_initialization();
 	info->fov = (FOV * (M_PI / 180));
 	info->save = 0;

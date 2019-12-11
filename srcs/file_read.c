@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:08:11 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 15:47:08 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:13:23 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ char *tmp_map)
 	char	*str_row;
 
 	col = -1;
-	if (!(str_row = malloc(sizeof(*str_row) * info->map->map_col)))
+	if (!(str_row = malloc(sizeof(*str_row) * info->map.map_col)))
 		return (NULL);
-	while (++col < info->map->map_col)
+	while (++col < info->map.map_col)
 	{
 		str_row[col] = tmp_map[col];
 		if (first_in_set(str_row[col], PLAYER_INIT_POS))
 		{
-			info->map->player_dir = parse_info_player_dir(str_row[col]);
-			info->map->player_x = col + 0.5;
-			info->map->player_y = row + 0.5;
+			info->map.player_dir = parse_info_player_dir(str_row[col]);
+			info->map.player_x = col + 0.5;
+			info->map.player_y = row + 0.5;
 			(*player)++;
 		}
 		if (*player > 1)
 		{
-			info->map->player_x = -1;
-			info->map->player_y = -1;
+			info->map.player_x = -1;
+			info->map.player_y = -1;
 		}
 		if (str_row[col] == '2')
 			init_sprite(info, col, row);
@@ -122,8 +122,8 @@ void		read_file_info(char *file, char *param2, t_info *info)
 		error_global_close_fd(fd, info);
 	if (parse_file_info(fd, NULL, info) < 0)
 		error_global_close_fd(fd, info);
-	if (parse_file_map(fd, NULL, info, info->map) < 0)
+	if (parse_file_map(fd, NULL, info, &info->map) < 0)
 		error_global_close_fd(fd, info);
-	check_info(info, info->map);
+	check_info(info, &info->map);
 	close(fd);
 }

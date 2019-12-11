@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:21:44 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 16:10:13 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:13:47 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void		set_mini_map(t_info *info, t_mini_map *m_map)
 	int ratio_y;
 	int diff;
 
-	ratio_x = info->res_x / info->map->map_col;
-	ratio_y = info->res_y / info->map->map_row;
+	ratio_x = info->res_x / info->map.map_col;
+	ratio_y = info->res_y / info->map.map_row;
 	diff = ratio_x - ratio_y;
 	m_map->map = ratio_y + (diff / 2);
 	m_map->map += (m_map->map % 2) ? 1 : 0;

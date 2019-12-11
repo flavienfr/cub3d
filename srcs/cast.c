@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 18:20:08 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 17:10:43 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:14:26 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_ray *ray)
 	x_step *= (ray->face_lr == FAC_RIGHT && x_step < 0) ? -1 : 1;
 	ray->wall_x = x_intercept;
 	ray->wall_y = y_intercept;
-	while (ray->wall_x >= 0 && ray->wall_x < info->map->map_col
-		&& ray->wall_y >= 0 && ray->wall_y < info->map->map_row)
+	while (ray->wall_x >= 0 && ray->wall_x < info->map.map_col
+		&& ray->wall_y >= 0 && ray->wall_y < info->map.map_row)
 	{
 		if (is_wall(map, ray->wall_x, ray->wall_y +
 			(ray->face_ud == FAC_UP ? -1 : 0)))
@@ -59,8 +59,8 @@ t_ray *ray)
 	y_step *= (ray->face_ud == FAC_DOWN && y_step < 0) ? -1 : 1;
 	ray->wall_x = x_intercept;
 	ray->wall_y = y_intercept;
-	while (ray->wall_x >= 0 && ray->wall_x < info->map->map_col
-	&& ray->wall_y >= 0 && ray->wall_y < info->map->map_row)
+	while (ray->wall_x >= 0 && ray->wall_x < info->map.map_col
+	&& ray->wall_y >= 0 && ray->wall_y < info->map.map_row)
 	{
 		if (is_wall(map, ray->wall_x +
 			(ray->face_lr == FAC_LEFT ? -1 : 0), ray->wall_y))
@@ -105,7 +105,7 @@ void		caste_all_ray(t_info *info, t_player *player)
 	while (++id < info->res_x)
 	{
 		info->ray[id] = inisialize_ray(info->ray[id], ray_angle);
-		cast_ray(info, player, info->map, &info->ray[id]);
+		cast_ray(info, player, &info->map, &info->ray[id]);
 		ray_angle += info->fov / info->res_x;
 	}
 }
