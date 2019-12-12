@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:13:43 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 18:27:12 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:07:18 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static t_player	player_initialization(void)
 	player.turn_dir_l = 0;
 	player.walk_dir_u = 0;
 	player.walk_dir_d = 0;
+	player.straf_r = 0;
+	player.straf_l = 0;
 	player.rotate_angle = 0.0;
 	player.move_speed = MOVE_SPEED;
 	player.rotate_speed = ROTATE_SPEED * (M_PI / 180);

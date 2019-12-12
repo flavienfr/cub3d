@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:59:13 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/12 14:40:47 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/12 18:15:47 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define LEFT 0
 # define SPACE 49
 # define SHIFHT 257
+# define L_AROW 123
+# define R_AROW	124
 
 /*
 **	color
@@ -55,9 +57,11 @@
 **	player config
 */
 # define MOVE_SPEED 0.13
-# define ROTATE_SPEED 2.5
+# define ROTATE_SPEED 2.7
 # define FOV 60
-# define RUN_SPEED 0.15
+# define RUN_SPEED 0.131
+# define RUN_ROTATE_SPEED 2.72
+# define STRAF_FACTOR 2
 
 /*
 **	Mini map info
@@ -154,6 +158,8 @@ typedef struct	s_player
 	int			turn_dir_l;
 	int			walk_dir_u;
 	int			walk_dir_d;
+	int			straf_r;
+	int			straf_l;
 	float		rotate_angle;
 	float		move_speed;
 	float		rotate_speed;
