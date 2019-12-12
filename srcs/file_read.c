@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 11:08:11 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 18:13:23 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:40:15 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	parse_file_map_2(int fd, char *line, char **map, int *row)
 	last_idx = -1;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		if (first_in_set(*line, MAP_INFO))
+		if (first_in_set(*line, MAP_INFO) && ++(*row))
 		{
 			i = -1;
 			idx = 0;
@@ -76,11 +76,11 @@ static int	parse_file_map_2(int fd, char *line, char **map, int *row)
 				ft_strjoin(*map, "Map_Error");
 			last_idx = idx;
 			ft_strlcpy(line, line, idx + 1);
-			*map = ft_strjoin(*map, line);
-			(*row)++;
+			*map = ft_strjoin_free(*map, line);
 		}
 		free(line);
 	}
+	free(line);
 	return ((ret < 0) ? ret : idx);
 }
 

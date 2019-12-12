@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 15:19:08 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 18:31:14 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/12 13:23:53 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ void	free_info(t_info *info)
 
 	if (info->map.map)
 	{
-		i = -1;//pk 1 avant ?
+		i = -1;
 		while (++i < info->map.map_row)
 			free(info->map.map[i]);
 		free(info->map.map);
 	}
-	free(&info->map);
 	free(info);
 }
 

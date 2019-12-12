@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:59:13 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 18:10:30 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/12 14:40:47 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ typedef struct	s_tex
 {
 	int		tex[TEXTURE_SIZE][TEXTURE_SIZE];
 	char	*path;
-	int		*data;
 	void	*ptr;
+	int		*data;
 	int		width;
 	int		height;
 	int		bpp;

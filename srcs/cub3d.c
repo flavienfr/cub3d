@@ -6,7 +6,7 @@
 /*   By: froussel <froussel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 18:41:17 by froussel          #+#    #+#             */
-/*   Updated: 2019/12/11 18:11:42 by froussel         ###   ########.fr       */
+/*   Updated: 2019/12/12 13:21:10 by froussel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,5 @@ int		main(int ac, char **av)
 		screen_shot(info);
 	else
 		mlx_loop(info->mlx_ptr);
-	return (0);
+	return (EXIT_SUCCESS);
 }
